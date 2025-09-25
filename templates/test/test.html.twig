@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page test{% endblock %}
+
+{% block body %}
+<h1>test</h1>
+
+    <div class="col-md-6">
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Couverture d'Album</th>
+            <th>Artiste</th>
+        </tr>
+        </thead>
+        <tbody>
+{% for disc in discs %}
+
+        <!-- Tableau-->
+        <tr>
+            <td>
+                pictures soon...
+            </td>
+            <td>
+                <h4>{{ disc.title}}</h4> <br>
+               Name : {{disc.artist.name}}<br>
+               Label : {{disc.label}}<br>
+               Year : {{disc.year}} <br>
+               Genre : {{disc.genre}} <br>
+            </td>
+        </tr>
+        </tbody>
+{% endfor %}
+    </table>
+    </div>
+
+{% endblock %}
