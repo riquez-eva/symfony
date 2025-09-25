@@ -19,11 +19,11 @@ final class AccueilController extends AbstractController
         ]);
     }
 
-    #[Route('/contact', name: 'app_contact')]
-    public function contact(): Response
+    #[Route('/details', name: 'app_details')]
+    public function details(): Response
     {
          $info = ['lastname' => 'Loper', 'firstname' => 'Dave', 'email' => 'daveloper@code.dom', 'birthdate' => '01/01/1970'];
-        return $this->render('accueil/contact.html.twig', [
+        return $this->render('accueil/details.html.twig', [
             'controller_name' => 'AccueilController',
             'informations' => $info
         ]);
