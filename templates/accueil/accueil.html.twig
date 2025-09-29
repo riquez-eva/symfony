@@ -3,7 +3,7 @@
 {% block body %}
 
 <h1>Liste des disques</h1>
-
+<h2>Il y a {{ totalDisques }} disques </h2>
     <div class="col-md-6">
     <table class="table table-bordered">
         <thead>
@@ -28,7 +28,8 @@
                Label : {{disc.label}}<br>
                Year : {{disc.year}} <br>
                Genre : {{disc.genre}} <br>
-               <a href="/details">Détails</a>
+            <a href="{{ path('app_details', {'id': disc.id}) }}" class="btn btn-info">Détails</a>
+            <a href="/details/{{ disc.id }}" class="btn btn-info">Détails</a>
             </td>
         </tr>
         </tbody>

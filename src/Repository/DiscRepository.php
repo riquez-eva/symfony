@@ -40,4 +40,12 @@ class DiscRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function countDisc()
+    {
+        return $this-> createQueryBuilder('d')
+        -> select('COUNT(d.id)')
+        ->getQuery()
+        ->getSingleScalarResult();
+    }
 }

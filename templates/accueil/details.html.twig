@@ -5,30 +5,18 @@
 
 <h1>Contact</h1>
 <p>Je veux mettre les détails en fonction de chaque disque</p>
-<div class="container">
-        <div class="row mt-5">
-            <div class="col-sm-8 offset-sm-2">
-                <h1>Vos informations</h1>
-                <table class="table table-light table-hover">
-                    <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Date de naissance</th>
-                        <th>Email</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{{ informations.lastname }}</td>
-                        <td>{{ informations.firstname }}</td>
-                        <td>{{ informations.birthdate }}</td>
-                        <td>{{ informations.email }}</td>
-                    </tr>
-                    </tbody>
-                </table>
 
-            </div>
-        </div>
-    </div>
+
+<h1>Détails du disque</h1>
+
+<img src="{{ asset('pictures/' ~ disc.picture) }}" alt="{{ disc.title }}" style="width: 250px;"><br><br>
+<p><strong>Titre :</strong> {{ disc.title }}</p>
+<p><strong>Artiste :</strong> {{ disc.artist.name }}</p>
+<p><strong>Année :</strong> {{ disc.year }}</p>
+<p><strong>Genre :</strong> {{ disc.genre }}</p>
+<p><strong>Label :</strong> {{ disc.label }}</p>
+<p><strong>Prix :</strong> {{ disc.price }} €</p>
+
+<a href="{{ path('app_accueil') }}" class="btn btn-primary mt-3">← Retour à la liste</a>
+
 {% endblock %}
