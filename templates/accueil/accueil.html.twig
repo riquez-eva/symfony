@@ -4,7 +4,10 @@
 
 <h1>Liste des disques</h1>
 <h2>Il y a {{ totalDisques }} disques </h2>
-    <div class="col-md-6">
+    <div class="container-fluid col-md-6">
+    <div class="d-flex justify-content-end m-3">
+        <a href="/formulaire" class="btn btn-info">Ajouter un disque</a>
+    </div>
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -28,7 +31,6 @@
                Label : {{disc.label}}<br>
                Year : {{disc.year}} <br>
                Genre : {{disc.genre}} <br>
-            <a href="{{ path('app_details', {'id': disc.id}) }}" class="btn btn-info">Détails</a>
             <a href="/details/{{ disc.id }}" class="btn btn-info">Détails</a>
             </td>
         </tr>

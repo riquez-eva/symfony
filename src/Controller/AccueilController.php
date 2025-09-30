@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Form\FileType;
+use App\Form\TestType;
 use App\Form\DiscType;
 use App\Entity\Disc;
 use App\Repository\DiscRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +29,7 @@ final class AccueilController extends AbstractController
     }
     
     #Pour l'instant c'est un essai mais ca ne fonctionne pas
-    #[Route('/disc_details/{id}', name: 'app_details')]
+    #[Route('/details/{id}', name: 'app_details')]
     public function details(Disc $disc): Response
     {
         return $this->render('accueil/details.html.twig', [
@@ -34,18 +37,41 @@ final class AccueilController extends AbstractController
         ]);
     }
     #[Route('/formulaire', name: 'app_formulaire')]
-    public function formulaire(Request $request): Response
+    public function formulaire(Request $request, EntityManagerInterface $manager): Response
     {
         $disc = new Disc();
         $form = $this->createForm(DiscType::class, $disc);
-        $form->handlerequest($request);
+        $form->handleRequest($request);
 
-        if ($form->isSubmitted()){
-            dd($form);
+        if ($form->isSubmitted() && $form->isValid()){
+            //dd($disc);
+            $manager->persist($disc);
+            $manager->flush();
+
+            return $this->redirect("/accueil");
         }
 
         return $this->render('accueil/formulaire.html.twig', [
             'form' => $form
+        ]);
+    }
+
+        #[Route('/message', name: 'app_message')]
+        public function message(Request $request): Response
+    {
+
+        $form = $this->createForm(TestType::class);
+
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            dd($form);
+
+            return $this->redirect("/accueil");
+        }
+        return $this->render('accueil/message.html.twig', [
+            "form" => $form
         ]);
     }
 

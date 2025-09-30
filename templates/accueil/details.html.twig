@@ -3,12 +3,9 @@
 
 {% block body %}
 
-<h1>Contact</h1>
-<p>Je veux mettre les détails en fonction de chaque disque</p>
-
 
 <h1>Détails du disque</h1>
-
+<div class="container-fluid col-md-6 border">
 <img src="{{ asset('pictures/' ~ disc.picture) }}" alt="{{ disc.title }}" style="width: 250px;"><br><br>
 <p><strong>Titre :</strong> {{ disc.title }}</p>
 <p><strong>Artiste :</strong> {{ disc.artist.name }}</p>
@@ -17,6 +14,7 @@
 <p><strong>Label :</strong> {{ disc.label }}</p>
 <p><strong>Prix :</strong> {{ disc.price }} €</p>
 
-<a href="{{ path('app_accueil') }}" class="btn btn-primary mt-3">← Retour à la liste</a>
+</div>
+<a href="{{ path('app_accueil') }}" class="btn btn-primary m-3">← Retour à la liste</a>
 
 {% endblock %}

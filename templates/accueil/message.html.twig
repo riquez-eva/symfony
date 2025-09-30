@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+<h1>Message</h1>
+
+<div class="container-fluid col-6">
+{{ form_start(form) }}
+<h1>Formulaire</h1>
+<p class="m-2">Votre email:</p>
+{{ form_widget(form.email) }}
+<p class="m-2">Votre sujet:</p>
+{{ form_widget(form.sujet) }}
+<p class="m-2">Votre message:</p>
+{{ form_widget(form.message) }}
+
+
+{{ form_end(form) }}
+
+</div>
+{% endblock %}
