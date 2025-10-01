@@ -4,54 +4,44 @@
 
 <h1>Liste des disques</h1>
 <h2>Il y a {{ totalDisques }} disques </h2>
-    <div class="container col-md-6">
-    <div class="d-flex justify-content-end m-3">
-        <a href="/formulaire" class="btn btn-info">Ajouter un disque</a>
-    </div>
-    <div class="row">
-    <table class="table table-bordered col-12 text-end">
-        <thead>
-        <tr>
-            <th>Couverture d'Album</th>
-            <th>Artiste</th>
-        </tr>
-        </thead>
-        <tbody>
+    <div class="container-xl">
+        <div class="row">
+            <div class="col-12 text-end m-3">
+                <a href="/formulaire" class="btn btn-info">Ajouter un disque</a>
+            </div>
+        </div>
+
+        <div class="row">
             {% for disc in discs %}
 
-                    <!-- Tableau-->
-                    <tr>
-                        <td>
-                        <div class="">
-                        <img src="{{ asset('pictures/'~ disc.picture ) }}" alt="{{ disc.title }}" style="width: 250px; height: auto" srcset=""> 
+                <div class="col-12 col-sm-6 col-md-4 col-xxl-2">
+
+
+
+                    <div class="card mb-3" style="">
+                        <img src="{{ asset('pictures/'~ disc.picture ) }}" alt="{{ disc.title }}" style="" srcset="" class="card-img-top h-100"> 
+                        <div class="card-body">
+                            <h5 class="card-title">{{ disc.title}}</h5>
+                            <p class="card-text text-truncate">
+                                                        Name : {{disc.artist.name}}<br>
+                                                        Label : {{disc.label}}<br>
+                                                        Year : {{disc.year}} <br>
+                                                        Genre : {{disc.genre}} <br>
+                                                        Price : {{disc.price}}$ <br>
+                            </p>
+                            <a href="/details/{{ disc.id }}" class="btn btn-info">Détails</a>
                         </div>
-                        </td>
-                        <td>
-                            <h4>{{ disc.title}}</h4> <br>
-                        Name : {{disc.artist.name}}<br>
-                        Label : {{disc.label}}<br>
-                        Year : {{disc.year}} <br>
-                        Genre : {{disc.genre}} <br>
-                        <a href="/details/{{ disc.id }}" class="btn btn-info">Détails</a>
-                        </td>
-                    </tr>
-                    </tbody>
+                    </div>
+
+
+                
+                                    
+                
+                </div>
             {% endfor %}
-    </table>
-    </div>
+        </div>
     </div>
 
-    <div class="card" style="width: 18rem;">
-  <img src="{{ asset('pictures/'~ disc.picture ) }}" class="card-img-top" alt="{{ disc.title }}">
-  <div class="card-body">
-    <h5 class="card-title">{{ disc.title}}</h5>
-    <p class="card-text">Name : {{disc.artist.name}}</p>
-    <p class="card-text">Label : {{disc.label}}</p>
-    <p class="card-text">Label : {{disc.year}}</p>
-    <p class="card-text">Label : {{disc.genre}}</p>
-    <a href="/details/{{ disc.id }}" class="btn btn-info">Détails</a>
-  </div>
-</div>
 
 {% endblock %}
 
