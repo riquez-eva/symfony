@@ -2,11 +2,43 @@
 
 
 {% block body %}
-<h1>Formulaire</h1>
+<h1> Ajouter un disque</h1>
 
 <div class="container-fluid col-6">
-{{
-    form(form)
-}}
+{{form_start(form)}}
+    {{form_row(form.title)}}
+    {{form_row(form.picture, {'attr': {'onchange': 'previewImage(event)'}})}}
+
+<!--Zone de prévisualitation-->
+<img id="preview" src="" alt="Aperçu" style="max-width: 200px; display: none; margin-top: 10px;" />
+
+{{ form_row(form.year) }}
+        {{ form_row(form.label) }}
+        {{ form_row(form.genre) }}
+        {{ form_row(form.price) }}
+        {{ form_row(form.artist) }}
+        {{ form_row(form.Enregistrer) }}
+    {{ form_end(form) }}
 </div>
+</div>
+
+<script>
+function previewImage(event) {
+    const input = event.target;
+    const file = input.files[0];
+    const preview = document.getElementById('preview');
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = '';
+        preview.style.display = 'none';
+    }
+}
+</script>
 {% endblock %}

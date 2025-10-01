@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Form\FileType;
+
 use App\Form\TestType;
 use App\Form\DiscType;
 use App\Entity\Disc;
@@ -45,10 +45,18 @@ final class AccueilController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
             //dd($disc);
+
+            $picture_name= $disc->getTitle().".png";
+            $picture = $form->get('picture')->getData();
+            $picture->move($this->getParameter('kernel.project_dir') . '/public/pictures',
+    $picture_name);
+
+            $disc->setPicture($picture_name);
+
             $manager->persist($disc);
             $manager->flush();
 
-            return $this->redirect("/accueil");
+            return $this->redirectToRoute('app_accueil');
         }
 
         return $this->render('accueil/formulaire.html.twig', [

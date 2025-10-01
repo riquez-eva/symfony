@@ -3,18 +3,19 @@
 namespace App\Form;
 
 
-use App\Entity\Artist;
 use App\Entity\Disc;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Artist;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 
 class DiscType extends AbstractType
@@ -24,22 +25,43 @@ class DiscType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 "constraints" => [
-                     new NotBlank([], "Remplis ce champ!!!!!!!!!!!")
+                    new NotBlank([], "Remplis ce champ!!!!!!!!!!!")
                 ]
             ])
             ->add('picture', FileType::class, [
-                "constraints" => [
-                    new File(
-                        maxSize: '1024k',
-                        extensions : ['png', 'jpg', 'jpeg'],
-                        extensionsMessage: 'Please upload a valid picture',
-                    )
-                ]
-            ] )
+                'label' => 'Image du disque',
+                'mapped' => false,
+                'required' => false,
+                'attr' => [
+                    'onchange' => 'previewImage(event)', // ✅ JS pour la preview
+                ],
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [                 // ✅ pas "extensions" mais "mimeTypes"
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid picture (JPG ou PNG)',
+                    ])
+                ],
+            ])
             ->add('year', IntegerType::class)
-            ->add('label', TextType::class)
-            ->add('genre', TextType::class)
-            ->add('price', IntegerType::class)
+            ->add('label', TextType::class, [
+                "constraints" => [
+                    new NotNull([], "Remplis ce champ!!!!!!!!!!!")
+                ]
+            ])
+            ->add('genre', TextType::class, [
+                "constraints" => [
+                    new NotNull([], "Remplis ce champ!!!!!!!!!!!")
+                ]
+            ])
+            ->add('price', IntegerType::class, [
+                "constraints" => [
+                    new NotNull([], "Remplis ce champ!!!!!!!!!!!")
+                ]
+            ])
             ->add('artist', EntityType::class, [
                 'class' => Artist::class,
                 'choice_label' => 'name',
