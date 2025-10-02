@@ -7,6 +7,7 @@ use App\Form\TestType;
 use App\Form\DiscType;
 use App\Entity\Disc;
 use App\Repository\DiscRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +29,6 @@ final class AccueilController extends AbstractController
         ]);
     }
     
-    #Pour l'instant c'est un essai mais ca ne fonctionne pas
     #[Route('/details/{id}', name: 'app_details')]
     public function details(Disc $disc): Response
     {
@@ -83,4 +83,31 @@ final class AccueilController extends AbstractController
         ]);
     }
 
+     #[Route('/modifier/{id}', name: 'app_modifier')]
+    public function modifier(Request $request, Disc $disc, EntityManagerInterface $manager): Response
+    {
+        $form = $this->createForm(DiscType::class, $disc);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->flush();
+            return $this->redirectToRoute('app_details', ['id' => $disc->getId()]);
+        }
+        return $this->render('accueil/modifier.html.twig', [
+            'form' => $form->createView(),
+            'disc' =>$disc,
+                ]);
+    }
+
+     #[Route('/details/{id}/supprimer', name: 'app_supprimer', methods:['post'])]
+    public function supprimer(Request $request, Disc $disc, EntityManagerInterface $manager): Response
+    {
+        if($this->isCsrfTokenValid('supprimer'.$disc->getId(), $request->request->get('_token'))){
+            $manager->remove($disc);
+            $manager->flush();
+            $this->addFlash('success', 'Le disque a bien été supprimé.');
+        }
+        return $this->redirectToRoute('app_accueil');
+    }
 }

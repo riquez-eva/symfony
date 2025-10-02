@@ -15,6 +15,14 @@
 <p><strong>Prix :</strong> {{ disc.price }} €</p>
 
 </div>
-<a href="{{ path('app_accueil') }}" class="btn btn-primary m-3">← Retour à la liste</a>
 
+<div>
+<a href="{{ path('app_accueil') }}" class="btn btn-primary m-3">← Retour à la liste</a>
+<a href="/modifier/{{ disc.id }}" class="btn btn-warning m-3">Modifier</a>
+<form method="post" action="{{ path('app_supprimer', {id: disc.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce disque??');">
+    <input type="hidden" name="_token" value="{{ csrf_token('supprimer' ~ disc.id) }}">
+    <button class="btn btn-danger">Supprimer</button>
+
+</form>
+</div>
 {% endblock %}
