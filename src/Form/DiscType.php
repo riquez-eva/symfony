@@ -46,7 +46,11 @@ class DiscType extends AbstractType
                     ])
                 ],
             ])
-            ->add('year', IntegerType::class)
+            ->add('year', IntegerType::class, [
+                "constraints" => [
+                    new NotNull([], "Remplis ce champ stp")
+                ]
+            ])
             ->add('label', TextType::class, [
                 "constraints" => [
                     new NotNull([], "Remplis ce champ!!!!!!!!!!!")

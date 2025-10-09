@@ -110,4 +110,18 @@ final class AccueilController extends AbstractController
         }
         return $this->redirectToRoute('app_accueil');
     }
+
+    #[Route('/admin', name: 'app_admin')]
+    public function admin(): Response
+    {
+        
+        return new Response("admin OK");
+    }
+
+     #[Route('/profile', name: 'app_profile')]
+    public function profile(): Response
+    {
+        
+        return new Response("profile OK");
+    }
 }

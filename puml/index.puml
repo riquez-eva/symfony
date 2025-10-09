@@ -10,6 +10,13 @@ class Disc {
 	<color:#0000dd>artist : Artist</color>
 }
 
+class User {
+	**id : int**
+	email : string
+	roles : array
+	password : string
+}
+
 class Artist {
 	**id : int**
 	name : string
